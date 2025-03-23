@@ -121,22 +121,24 @@ player=entity:new({
 		
 			--poll controllers
 			if btn(0) then
-			 tx=flr(x+(w*0.5)/8)
 				if fget(mget(tx-1,ty),0) then
 					x+=-1
-					tx=flr(x+(w*0.5)/8)
-					if ((minute%2) == 0) sfx(0)
-					
-				else sfx(2)
+					--tx=flr(x+(w*0.5)/8)
+					tx=flr(x/8)
+					if ((minute%2) == 0) sfx(0)	
+				else
+					sfx(2)
 				end
 				--sprite=1
 			end
 			
 			if btn(1) then
-			 tx=flr(x+(w*0.5)/8)
+			 --tx=flr((x+(w*0.5))/8)
+				tx=flr(x/8)
 				if fget(mget(tx+1,ty),0) then
 					x+=1
-					tx=flr(x+(w*0.5)/8)
+					--tx=flr(x+(w*0.5)/8)
+					tx=flr(x/8)
 					if ((minute%2) == 0) sfx(0)
 				else sfx(2)
 				end
@@ -144,10 +146,11 @@ player=entity:new({
 			end
 				
 			if btn(2) then
-			 ty=flr(y+(h*0.5)/8)
+			 --ty=flr(y+(h*0.5)/8)
 				if fget(mget(tx,ty-1),0) then
 					y+=-1
-					ty=flr(y+(h*0.5)/8)
+					--ty=flr(y+(h*0.5)/8)
+					ty=flr(y/8)
 					if ((minute%2) == 0) sfx(0)
 				else sfx(2)
 				end
@@ -155,10 +158,11 @@ player=entity:new({
 			end
 			
 			if btn(3) then
-			 ty=flr(y+(h*0.5)/8) 
+			 --ty=flr(y+(h*0.5)/8) 
 				if fget(mget(tx,ty+1),0) then
 					y+=1
-					ty=flr(y+(h*0.5)/8)
+					--ty=flr(y+(h*0.5)/8)
+					tx=flr(x/8)
 					if ((minute%2) == 0) sfx(0)
 				else sfx(2)
 				end
@@ -166,14 +170,18 @@ player=entity:new({
 			--end controller update
 			
 			if btnp(5) then
-			 tx=flr(x+(w*0.5)/8)
-		  ty=flr(y+(h*0.5)/8)
+			 --tx=flr(x+(w*0.5)/8)
+		  --ty=flr(y+(h*0.5)/8)
+				tx=flr(x/8)
+				ty=flr(y/8)
 				till(tx,ty)
 			end
 			
 			if btnp(4) then
-			 tx=flr(x+(w*0.5)/8)
-		  ty=flr(y+(h*0.5)/8)
+			 --tx=flr(x+(w*0.5)/8)
+		  --ty=flr(y+(h*0.5)/8)
+				tx=flr(x/8)
+				ty=flr(y/8)
 				plant(tx,ty)
 			end
 				
@@ -201,9 +209,10 @@ player=entity:new({
 		end
 		
 		--get player tile location
-		tx=flr(x+(w*0.5)/8)
-		ty=flr(y+(h*0.5)/8)
-		
+		--tx=flr(x+(w*0.5)/8)
+		--ty=flr(y+(h*0.5)/8)
+		tx=flr(x/8)
+		ty=flr(y/8)
 	
 		
 	end, --end update player function
@@ -230,8 +239,8 @@ function init_player()
 		y=40,
 		w=8,
 		h=8,
-		tx=flr(x/8),
-		ty=flr(y/8),
+		--tx=flr(x/8),
+		--ty=flr(y/8),
 	})
 	
 	add(players,p1)
