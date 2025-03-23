@@ -157,8 +157,8 @@ player=entity:new({
 		end
 		
 		--get player tile location
-		ptx=x/8
-		pty=y/8
+		ptx=(x+4)/8
+		pty=(y+6)/8
 		
 	
 		
