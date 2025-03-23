@@ -476,20 +476,20 @@ player = entity:new({
 		x = x+velx
 		if x>120 then
 			x = 120
-			xvel = 0
+			velx = 0
 		elseif x < 0 then
 			x=0
-			xvel = 0
+			velx = 0
 		end
 		
 		
 		y = y+vely
 		if y>120 then
 			y = 120
-			yvel = 0
+			vely = 0
 		elseif y<=0 then
 			y=0
-			yvel=0	
+			vely=0	
 		end
 		
 		--update player animation

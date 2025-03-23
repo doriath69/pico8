@@ -9,12 +9,27 @@ __lua__
 
 function _init()
 
+--init player
+
+	players = {}
+	
+	init_player()
+
+ 
 
 end
 -->8
 --update
 
 function _update()
+
+	for player in all(players) do
+		
+		print("name: " .. player.name)
+		player:update()
+	
+	end --end player loop
+	
 end
 
 -->8
@@ -23,9 +38,139 @@ end
 function _draw()
 	cls(4)
 	map()
-end
+	
+	for player in all(players) do
+	
+		player:draw()
+	
+	end --end for player loop
+	
+end --end _draw function
 
 
+-->8
+--oop
+
+-- oop - metatable
+
+class=setmetatable({
+	new=function(self,tbl)
+		tbl=tbl or {}
+		setmetatable(tbl,{
+		 	__index=self
+		 })
+		return tbl
+	end, --new(
+},{__index=_ENV})
+
+entity=class:new({
+	x=0,
+	y=0,
+	h=8,
+	w=8,
+})
+
+
+-->8
+--player
+
+--define player class object
+
+player=entity:new({
+	pos="p1",
+	name="farmer",
+	sprite=16,
+	health=5,
+	velx=0,
+	vely=0,
+	
+	update=function(_ENV)
+		
+			--poll controllers
+			if btn(0) then
+				x+=-1
+				sfx(0)
+				--sprite=1
+			end
+			
+			if btn(1) then
+				x+=1
+				sfx(0)
+				--sprite=3
+			end
+				
+			if btn(2) then
+				y+=-1
+				sfx(0)
+				--sprite=2
+			end
+			
+			if btn(3) then 
+				y+=1
+				sfx(0)
+				--sprite=2
+			end
+		
+	
+	 --update position and
+	 --mantain map boundaries
+	
+		x = x+velx
+		if x>120 then
+			x = 120
+			velx = 0
+		elseif x < 0 then
+			x=0
+			velx = 0
+		end
+		
+		
+		y = y+vely
+		if y>120 then
+			y = 120
+			vely = 0
+		elseif y<=0 then
+			y=0
+			vely=0	
+		end
+	
+		
+	end, --end update player function
+
+	--draw player function
+	
+	draw = function(_ENV)
+		spr(sprite,x,y)
+	
+	end, -- end draw player function
+	
+	}) --end player object definition
+
+
+--start init player function
+
+function init_player()
+
+	p1 = player:new({
+	name="player 1",
+	x=40,
+	y=40,
+	})
+	
+	add(players,p1)
+	
+end  --end init player function
+
+
+-->8
+--controls
+
+function update_controls()
+
+	
+
+
+end --end update controls
 __gfx__
 0000000044444444444444444ccccccc44444444ccccccc4cccccccc4444444444444444ccccccc44ccccccccccccccc00000000000000000000000000000000
 0000000044444644446444444ccccccccc4c44ccccccccc4cccccccc4ccc44cccc4c44c4ccccccc44ccccccccccccccc00000000000000000000000000000000
@@ -57,3 +202,5 @@ __map__
 0101020202020202020202020101020200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 0101020202010101010101010101010200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 0101020101010101010101010101010200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+__sfx__
+000100000305000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
